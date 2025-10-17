@@ -30,10 +30,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar {...props}>
       <SidebarHeader>
-        <div className="p-2 flex items-center gap-2">
-          <Logo />
-          <h1 className="text-lg">Website Name</h1>
-        </div>
+        <Link to="/">
+          <div className="p-2 flex items-center gap-2">
+            <Logo />
+            <h1 className="text-lg">Delva</h1>
+          </div>
+        </Link>
         <SearchForm />
       </SidebarHeader>
       <SidebarContent>
