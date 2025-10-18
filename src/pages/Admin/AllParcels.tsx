@@ -1,6 +1,7 @@
 import {
   useParcelBlockMutation,
   useParcelInfoQuery,
+  useParcelUnblockMutation,
 } from "@/redux/features/auth/auth.api";
 
 const AllParcels = () => {
@@ -10,13 +11,19 @@ const AllParcels = () => {
     isError,
   } = useParcelInfoQuery(undefined);
   const [blockParcel, { isLoading: isBlocking }] = useParcelBlockMutation();
+  const [unblockParcel, { isLoading: isUnblocking }] =
+    useParcelUnblockMutation();
 
   if (isLoading) return <p>Loading parcels...</p>;
   if (isError) return <p>Failed to load parcels.</p>;
 
-  const handleBlockUnblock = async (id: string) => {
-    console.log("Blocking/Unblocking parcel with ID:", id);
+  const handleBlock = async (id: string) => {
+    console.log("Blocking parcel with ID:", id);
     await blockParcel(id);
+  };
+  const handleUnblock = async (id: string) => {
+    console.log("Unblocking parcel with ID:", id);
+    await unblockParcel(id);
   };
 
   return (
@@ -85,19 +92,24 @@ const AllParcels = () => {
                   <div className="flex gap-2">
                     {/* Unblock Button */}
                     <button
-                      disabled={!parcel.isBlocked} // Only active if parcel is currently blocked
+                      onClick={() => handleUnblock(parcel._id)}
+                      disabled={!parcel.isBlocked || isUnblocking} // Only active if parcel is currently blocked
                       className={`w-full rounded px-4 py-2 text-sm font-medium transition hover:scale-105 ${
                         parcel.isBlocked
                           ? "bg-gray-100 text-gray-900 hover:bg-gray-200"
                           : "bg-gray-200 text-gray-500 cursor-not-allowed"
                       }`}
                     >
-                      {parcel.isBlocked ? "Unblock" : "Unblock"}
+                      {isUnblocking
+                        ? "Unblocking..." // while request is in progress
+                        : parcel.isBlocked
+                        ? "Unblock"
+                        : "Unblocked"}
                     </button>
 
                     {/* Block Button */}
                     <button
-                      onClick={() => handleBlockUnblock(parcel._id)}
+                      onClick={() => handleBlock(parcel._id)}
                       disabled={parcel.isBlocked || isBlocking} // Disable if already blocked
                       className={`w-full rounded px-4 py-2 text-sm font-medium transition hover:scale-105 ${
                         parcel.isBlocked
