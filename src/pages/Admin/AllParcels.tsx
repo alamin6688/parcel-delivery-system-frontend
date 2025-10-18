@@ -1,8 +1,10 @@
+import Loader from "@/components/Loader/Loader";
 import {
   useParcelBlockMutation,
   useParcelInfoQuery,
   useParcelUnblockMutation,
 } from "@/redux/features/auth/auth.api";
+
 
 const AllParcels = () => {
   const {
@@ -14,7 +16,7 @@ const AllParcels = () => {
   const [unblockParcel, { isLoading: isUnblocking }] =
     useParcelUnblockMutation();
 
-  if (isLoading) return <p>Loading parcels...</p>;
+  if (isLoading) return <div className="flex items-center justify-center min-h-screen"><Loader /></div>;
   if (isError) return <p>Failed to load parcels.</p>;
 
   const handleBlock = async (id: string) => {
