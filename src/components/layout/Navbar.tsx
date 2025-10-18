@@ -34,7 +34,7 @@ export default function Navbar() {
   const { data } = useUserInfoQuery(undefined);
   const [logout] = useLogoutMutation();
   const dispatch = useAppDispatch();
-  console.log(data);
+  // console.log(data);
   // console.log("Current user ID:", data?.data?.userId);
 
 

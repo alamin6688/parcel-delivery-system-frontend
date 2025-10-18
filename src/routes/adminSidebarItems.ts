@@ -1,19 +1,20 @@
 // import AddDivision from "@/pages/Admin/AddDivision";
 // import AddTour from "@/pages/Admin/AddTour";
 // import AddTourType from "@/pages/Admin/AddTourType";
+// import AllParcels from "@/pages/Admin/AllParcels";
 import type { ISidebarItem } from "@/types";
 import { lazy } from "react";
 
-const Analytics = lazy(() => import("@/pages/Admin/Analytics"));
+const AllParcels = lazy(() => import("@/pages/Admin/AllParcels"));
 
 export const adminSidebarItems: ISidebarItem[] = [
   {
     title: "Dashboard",
     items: [
       {
-        title: "Analytics",
-        url: "/admin/analytics",
-        component: Analytics,
+        title: "All Parcels",
+        url: "/admin/all-parcels",
+        component: AllParcels,
       },
     ],
   },

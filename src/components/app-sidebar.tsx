@@ -17,9 +17,9 @@ import Logo from "@/assets/icons/Logo";
 import { Link } from "react-router";
 import { getSidebarItems } from "@/utils/getSidebarItems";
 import { useUserInfoQuery } from "@/redux/features/auth/auth.api";
+import { ModeToggle } from "./layout/Mode-toggle";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-
   const { data: userData } = useUserInfoQuery(undefined);
   console.log(userData);
 
@@ -30,12 +30,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar {...props}>
       <SidebarHeader>
-        <Link to="/">
-          <div className="p-2 flex items-center gap-2">
-            <Logo />
-            <h1 className="text-lg">Delva</h1>
-          </div>
-        </Link>
+        <div className="flex items-center justify-between">
+          <Link to="/">
+            <div className="p-2 flex items-center gap-2">
+              <Logo />
+              <h1 className="text-lg">Delva</h1>
+            </div>
+          </Link>
+          <ModeToggle />
+        </div>
         <SearchForm />
       </SidebarHeader>
       <SidebarContent>

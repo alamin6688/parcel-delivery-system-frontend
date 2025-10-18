@@ -36,7 +36,7 @@ export const router = createBrowserRouter([
     ] as TRole[]),
     path: "/admin",
     children: [
-      { index: true, element: <Navigate to="/admin/analytics" /> },
+      { index: true, element: <Navigate to="/admin/all-parcels" /> },
       ...generateRoutes(adminSidebarItems),
     ],
   },

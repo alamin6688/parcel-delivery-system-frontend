@@ -46,13 +46,28 @@ export const authApi = baseApi.injectEndpoints({
         method: "GET",
       }),
     }),
-
     userInfo: builder.query({
       query: () => ({
         url: "/user/me",
         method: "GET",
       }),
       providesTags: ["USER"],
+    }),
+
+    parcelInfo: builder.query({
+      query: () => ({
+        url: `/parcel`,
+        method: "GET",
+      }),
+      providesTags: ["PARCEL"],
+    }),
+
+    parcelBlock: builder.mutation({
+      query: (id: string) => ({
+        url: `/parcel/block/${id}`,
+        method: "PATCH",
+      }),
+      invalidatesTags: ["PARCEL"],
     }),
   }),
 });
@@ -65,4 +80,6 @@ export const {
   useUserInfoQuery,
   useLogoutMutation,
   useGetUserByIdQuery,
+  useParcelInfoQuery,
+  useParcelBlockMutation,
 } = authApi;
