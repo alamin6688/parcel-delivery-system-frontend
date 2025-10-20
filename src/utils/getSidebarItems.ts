@@ -1,7 +1,8 @@
 import { role } from "@/constants/role";
 import { adminSidebarItems } from "@/routes/adminSidebarItems";
-import { userSidebarItems } from "@/routes/userSidebarItems";
+import { senderSidebarItems } from "@/routes/senderSidebarItems";
 import type { TRole } from "@/types";
+// import { se } from "date-fns/locale";
 
 export const getSidebarItems = (userRole: TRole) => {
   switch (userRole) {
@@ -9,8 +10,8 @@ export const getSidebarItems = (userRole: TRole) => {
       return [...adminSidebarItems];
     case role.admin:
       return [...adminSidebarItems];
-    case role.user:
-      return [...userSidebarItems];
+    case role.sender:
+      return [...senderSidebarItems];
     default:
       return [];
   }

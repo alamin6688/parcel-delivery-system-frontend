@@ -7,7 +7,7 @@ import Verify from "@/pages/Verify";
 import { generateRoutes } from "@/utils/generateRoutes";
 import { createBrowserRouter, Navigate } from "react-router";
 import { adminSidebarItems } from "./adminSidebarItems";
-import { userSidebarItems } from "./userSidebarItems";
+import { senderSidebarItems } from "./senderSidebarItems";
 import Unauthorized from "@/pages/Unauthorized";
 import { withAuth } from "@/utils/withAuth";
 import { role } from "@/constants/role";
@@ -40,14 +40,26 @@ export const router = createBrowserRouter([
       ...generateRoutes(adminSidebarItems),
     ],
   },
+  // {
+  //   Component: withAuth(DashboardLayout, role.receiver as TRole),
+  //   path: "/receiver",
+  //   children: [
+  //     {
+  //       children: [
+  //         { index: true, element: <Navigate to="/sender/parcel" /> },
+  //         ...generateRoutes(userSidebarItems),
+  //       ],
+  //     },
+  //   ],
+  // },
   {
-    Component: withAuth(DashboardLayout, role.receiver as TRole),
-    path: "/receiver",
+    Component: withAuth(DashboardLayout, role.sender as TRole),
+    path: "/sender",
     children: [
       {
         children: [
-          { index: true, element: <Navigate to="/receiver/bookings" /> },
-          ...generateRoutes(userSidebarItems),
+          { index: true, element: <Navigate to="/sender/create-parcel" /> },
+          ...generateRoutes(senderSidebarItems),
         ],
       },
     ],

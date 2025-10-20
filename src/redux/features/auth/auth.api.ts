@@ -76,6 +76,15 @@ export const authApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["PARCEL"],
     }),
+
+    createParcel: builder.mutation({
+      query: (parcelData) => ({
+        url: "/parcel",
+        method: "POST",
+        data: parcelData,
+      }),
+      invalidatesTags: ["PARCEL"],
+    }),
   }),
 });
 
@@ -90,4 +99,5 @@ export const {
   useParcelInfoQuery,
   useParcelBlockMutation,
   useParcelUnblockMutation,
+  useCreateParcelMutation,
 } = authApi;

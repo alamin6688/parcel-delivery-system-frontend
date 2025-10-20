@@ -5,7 +5,6 @@ import {
   useParcelUnblockMutation,
 } from "@/redux/features/auth/auth.api";
 
-
 const AllParcels = () => {
   const {
     data: parcelInfo,
@@ -16,7 +15,12 @@ const AllParcels = () => {
   const [unblockParcel, { isLoading: isUnblocking }] =
     useParcelUnblockMutation();
 
-  if (isLoading) return <div className="flex items-center justify-center min-h-screen"><Loader /></div>;
+  if (isLoading)
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <Loader />
+      </div>
+    );
   if (isError) return <p>Failed to load parcels.</p>;
 
   const handleBlock = async (id: string) => {
@@ -42,10 +46,7 @@ const AllParcels = () => {
               {/* Image */}
               <div className="relative">
                 <img
-                  src={
-                    parcel.imageUrl ||
-                    "https://images.unsplash.com/photo-1628202926206-c63a34b1618f?q=80&w=2574&auto=format&fit=crop"
-                  }
+                  src={parcel.imageURL}
                   alt={parcel.itemName || "Parcel"}
                   className="h-56 w-full object-cover"
                 />
