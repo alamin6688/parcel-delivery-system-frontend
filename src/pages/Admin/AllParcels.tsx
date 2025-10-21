@@ -1,5 +1,6 @@
 import Loader from "@/components/Loader/Loader";
 import {
+  useDeleteParcelMutation,
   useParcelBlockMutation,
   useParcelInfoQuery,
   useParcelUnblockMutation,
@@ -14,6 +15,7 @@ const AllParcels = () => {
   const [blockParcel, { isLoading: isBlocking }] = useParcelBlockMutation();
   const [unblockParcel, { isLoading: isUnblocking }] =
     useParcelUnblockMutation();
+      const [deleteParcel, { isLoading: isDeleting }] = useDeleteParcelMutation();
 
   if (isLoading)
     return (
@@ -30,6 +32,17 @@ const AllParcels = () => {
   const handleUnblock = async (id: string) => {
     console.log("Unblocking parcel with ID:", id);
     await unblockParcel(id);
+  };
+   const handleDelete = async (id: string) => {
+    if (!confirm("Are you sure you want to delete this parcel?")) return;
+
+    try {
+      await deleteParcel(id).unwrap();
+      alert("Parcel deleted successfully.");
+    } catch (err) {
+      console.error(err);
+      alert("Failed to delete parcel.");
+    }
   };
 
   return (
@@ -132,8 +145,9 @@ const AllParcels = () => {
                     <button className="w-full rounded bg-gray-100 px-4 py-2 text-sm font-medium text-gray-900 transition hover:scale-105">
                       Edit
                     </button>
-                    <button className="w-full rounded bg-red-700 px-4 py-2 text-sm font-medium text-white transition hover:scale-105">
-                      Delete
+                    <button 
+                     onClick={() => handleDelete(parcel._id)} className="w-full rounded bg-red-700 px-4 py-2 text-sm font-medium text-white transition hover:scale-105">
+                      {isDeleting ? "Deleting..." : "Delete"}
                     </button>
                   </div>
                   <button className="w-full rounded bg-gray-900 px-4 py-2 text-sm font-medium text-white transition hover:scale-105">

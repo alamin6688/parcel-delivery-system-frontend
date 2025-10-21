@@ -94,13 +94,21 @@ export const authApi = baseApi.injectEndpoints({
       invalidatesTags: ["PARCEL"],
     }),
 
-statusLog: builder.query({
-  query: (id: string) => ({
-    url: `/parcel/${id}/status-log`,
-    method: "GET",
-  }),
-  providesTags: (result, error, id) => [{ type: "PARCEL", id }],
-}),
+    deleteParcel: builder.mutation({
+      query: (id: string) => ({
+        url: `/parcel/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["PARCEL"], 
+    }),
+
+    statusLog: builder.query({
+      query: (id: string) => ({
+        url: `/parcel/${id}/status-log`,
+        method: "GET",
+      }),
+      providesTags: (result, error, id) => [{ type: "PARCEL", id }],
+    }),
 
     cancelParcel: builder.mutation({
       query: (id: string) => ({
@@ -142,6 +150,7 @@ export const {
   useParcelUnblockMutation,
   useSenderParcelInfoQuery,
   useCreateParcelMutation,
+  useDeleteParcelMutation,
   useStatusLogQuery,
   useCancelParcelMutation,
 } = authApi;
