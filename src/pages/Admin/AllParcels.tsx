@@ -4,7 +4,9 @@ import {
   useParcelBlockMutation,
   useParcelInfoQuery,
   useParcelUnblockMutation,
+  useUpdateParcelStatusMutation,
 } from "@/redux/features/auth/auth.api";
+import { toast } from "sonner";
 
 const AllParcels = () => {
   const {
@@ -12,10 +14,13 @@ const AllParcels = () => {
     isLoading,
     isError,
   } = useParcelInfoQuery(undefined);
+  console.log("Parcel from API:", parcelInfo);
   const [blockParcel, { isLoading: isBlocking }] = useParcelBlockMutation();
   const [unblockParcel, { isLoading: isUnblocking }] =
     useParcelUnblockMutation();
-      const [deleteParcel, { isLoading: isDeleting }] = useDeleteParcelMutation();
+  const [updateStatus, { isLoading: isUpdating }] =
+    useUpdateParcelStatusMutation();
+  const [deleteParcel, { isLoading: isDeleting }] = useDeleteParcelMutation();
 
   if (isLoading)
     return (
@@ -33,7 +38,30 @@ const AllParcels = () => {
     console.log("Unblocking parcel with ID:", id);
     await unblockParcel(id);
   };
-   const handleDelete = async (id: string) => {
+
+  const handleDispatch = async (parcel: (typeof parcelInfo.data)[0]) => {
+    if (parcel.status === "CANCELED") {
+      toast.error("Cannot dispatch a canceled parcel.");
+      return;
+    }
+
+    if (parcel.status !== "REQUESTED") {
+      toast.error(
+        `Parcel cannot be dispatched from status "${parcel.status}".`
+      );
+      return;
+    }
+
+    try {
+      await updateStatus({ id: parcel._id, status: "DISPATCHED" }).unwrap();
+      toast.success("Parcel status updated to DISPATCHED!");
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to update parcel status");
+    }
+  };
+
+  const handleDelete = async (id: string) => {
     if (!confirm("Are you sure you want to delete this parcel?")) return;
 
     try {
@@ -142,11 +170,30 @@ const AllParcels = () => {
                   </div>
 
                   <div className="flex gap-2">
-                    <button className="w-full rounded bg-gray-100 px-4 py-2 text-sm font-medium text-gray-900 transition hover:scale-105">
-                      Edit
+                    <button
+                      onClick={() => handleDispatch(parcel)} // pass full object
+                      disabled={parcel.status !== "REQUESTED" || isUpdating}
+                      className={`w-full rounded px-4 py-2 text-sm font-medium transition hover:scale-105 ${
+                        parcel.status === "DISPATCHED"
+                          ? "bg-green-500 text-white cursor-not-allowed"
+                          : parcel.status === "CANCELED"
+                          ? "bg-gray-600 text-white cursor-not-allowed"
+                          : "bg-gray-100 text-gray-900 hover:bg-gray-200"
+                      }`}
+                    >
+                      {parcel.status === "DISPATCHED"
+                        ? "Dispatched"
+                        : parcel.status === "CANCELED"
+                        ? "Canceled"
+                        : isUpdating
+                        ? "Updating..."
+                        : "Mark as Dispatched"}
                     </button>
-                    <button 
-                     onClick={() => handleDelete(parcel._id)} className="w-full rounded bg-red-700 px-4 py-2 text-sm font-medium text-white transition hover:scale-105">
+
+                    <button
+                      onClick={() => handleDelete(parcel._id)}
+                      className="w-full rounded bg-red-700 px-4 py-2 text-sm font-medium text-white transition hover:scale-105"
+                    >
                       {isDeleting ? "Deleting..." : "Delete"}
                     </button>
                   </div>
