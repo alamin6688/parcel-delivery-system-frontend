@@ -1,5 +1,6 @@
 import Cancel_Parcel from "@/pages/Sender/Cancel_Parcel";
 import Parcel from "@/pages/Sender/Parcel";
+import ParcelStatusLog from "@/pages/Sender/ParcelStatusLog";
 import { SenderParcels } from "@/pages/Sender/SenderParcels";
 import type { ISidebarItem } from "@/types";
 
@@ -21,6 +22,11 @@ export const senderSidebarItems: ISidebarItem[] = [
         title: "My Parcels",
         url: "/sender/my-parcels",
         component: SenderParcels,
+      },
+      {
+        // title: "Parcel Status Log",
+        url: `/sender/parcel/:id/status-log`,
+        component: ParcelStatusLog,
       },
     ],
   },

@@ -1,5 +1,7 @@
 import Loader from "@/components/Loader/Loader";
+import { Button } from "@/components/ui/button";
 import { useSenderParcelInfoQuery } from "@/redux/features/auth/auth.api";
+import { Link } from "react-router";
 
 export const SenderParcels = () => {
   const {
@@ -62,11 +64,11 @@ export const SenderParcels = () => {
             </p>
 
             {/* Status Logs */}
-            <div className="mt-4 border-t pt-3">
-              <h4 className="text-sm font-medium text-gray-700 mb-2">
+            <div className="mt-4 border-t pt-3 text-right">
+              {/* <h4 className="text-sm font-medium text-gray-700 mb-2">
                 Status Logs:
-              </h4>
-              <ul className="text-sm text-gray-600 space-y-1">
+              </h4> */}
+              {/* <ul className="text-sm text-gray-600 space-y-1">
                 {parcel.statusLogs.map((log, index) => (
                   <li key={index} className="flex justify-between">
                     <span>• {log.note}</span>
@@ -83,7 +85,15 @@ export const SenderParcels = () => {
                     </span>
                   </li>
                 ))}
-              </ul>
+              </ul> */}
+              <Button>
+                <Link
+                  to={`/sender/parcel/${parcel._id}/status-log`}
+                  className="text-white "
+                >
+                  View Status Log
+                </Link>
+              </Button>
             </div>
           </div>
         ))}

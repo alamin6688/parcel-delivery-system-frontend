@@ -12,7 +12,7 @@ export interface IResponse<T> {
 export interface ISidebarItem {
   title: string;
   items: {
-    title: string;
+    title?: string;
     url: string;
     component: ComponentType;
   }[];
