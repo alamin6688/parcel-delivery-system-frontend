@@ -1,4 +1,5 @@
 import Loader from "@/components/Loader/Loader";
+import { Button } from "@/components/modules/HomePage/button";
 import {
   useDeleteParcelMutation,
   useParcelBlockMutation,
@@ -6,6 +7,7 @@ import {
   useParcelUnblockMutation,
   useUpdateParcelStatusMutation,
 } from "@/redux/features/auth/auth.api";
+import { Link } from "react-router";
 import { toast } from "sonner";
 
 const AllParcels = () => {
@@ -175,7 +177,7 @@ const AllParcels = () => {
                       disabled={parcel.status !== "REQUESTED" || isUpdating}
                       className={`w-full rounded px-4 py-2 text-sm font-medium transition hover:scale-105 ${
                         parcel.status === "DISPATCHED"
-                          ? "bg-green-500 text-white cursor-not-allowed"
+                          ? "bg-green-800 text-white cursor-not-allowed"
                           : parcel.status === "CANCELED"
                           ? "bg-gray-600 text-white cursor-not-allowed"
                           : "bg-gray-100 text-gray-900 hover:bg-gray-200"
@@ -197,9 +199,14 @@ const AllParcels = () => {
                       {isDeleting ? "Deleting..." : "Delete"}
                     </button>
                   </div>
-                  <button className="w-full rounded bg-gray-900 px-4 py-2 text-sm font-medium text-white transition hover:scale-105">
-                    Take Action
-                  </button>
+                  <Button>
+                    <Link
+                      to={`/admin/parcel/${parcel._id}/status-log`}
+                      className="text-white w-full rounded  px-4 py-2 text-sm font-medium transition hover:scale-105"
+                    >
+                      View Status Log
+                    </Link>
+                  </Button>
                 </div>
               </div>
             </div>

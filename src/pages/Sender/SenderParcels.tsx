@@ -89,7 +89,7 @@ export const SenderParcels = () => {
               <Button>
                 <Link
                   to={`/sender/parcel/${parcel._id}/status-log`}
-                  className="text-white "
+                  className="text-white"
                 >
                   View Status Log
                 </Link>
