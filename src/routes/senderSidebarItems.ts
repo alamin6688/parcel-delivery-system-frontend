@@ -18,8 +18,8 @@ export const senderSidebarItems: ISidebarItem[] = [
         component: Cancel_Parcel,
       },
       {
-        title: "Parcel Status",
-        url: "/sender/parcel-status",
+        title: "My Parcels",
+        url: "/sender/my-parcels",
         component: SenderParcels,
       },
     ],
