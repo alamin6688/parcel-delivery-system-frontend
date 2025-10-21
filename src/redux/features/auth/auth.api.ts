@@ -77,6 +77,14 @@ export const authApi = baseApi.injectEndpoints({
       invalidatesTags: ["PARCEL"],
     }),
 
+    senderParcelInfo: builder.query({
+      query: () => ({
+        url: `/parcel/me`, // ✅ use sender’s own parcels
+        method: "GET",
+      }),
+      providesTags: ["PARCEL"],
+    }),
+
     createParcel: builder.mutation({
       query: (parcelData) => ({
         url: "/parcel",
@@ -84,6 +92,30 @@ export const authApi = baseApi.injectEndpoints({
         data: parcelData,
       }),
       invalidatesTags: ["PARCEL"],
+    }),
+    cancelParcel: builder.mutation({
+      query: (id: string) => ({
+        url: `/parcel/cancel/${id}`,
+        method: "PATCH",
+      }),
+      invalidatesTags: ["PARCEL"],
+      async onQueryStarted(id, { dispatch, queryFulfilled }) {
+        // Optimistic cache update
+        const patchResult = dispatch(
+          authApi.util.updateQueryData(
+            "senderParcelInfo",
+            undefined,
+            (draft) => {
+              draft.data = draft.data.filter((p) => p._id !== id);
+            }
+          )
+        );
+        try {
+          await queryFulfilled;
+        } catch {
+          patchResult.undo();
+        }
+      },
     }),
   }),
 });
@@ -99,5 +131,7 @@ export const {
   useParcelInfoQuery,
   useParcelBlockMutation,
   useParcelUnblockMutation,
+  useSenderParcelInfoQuery,
   useCreateParcelMutation,
+  useCancelParcelMutation,
 } = authApi;
