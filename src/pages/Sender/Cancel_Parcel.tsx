@@ -9,19 +9,28 @@ import { toast } from "sonner";
 const Cancel_Parcel = () => {
   const [parcelId, setParcelId] = useState("");
 
+  // Define a Parcel type to avoid implicit any
+  type Parcel = {
+    _id: string;
+    status?: string | null;
+    parcelType?: string | null;
+    trackingId?: string | null;
+    // add other fields as needed
+  };
+
   // Fetch sender's parcels
   const {
     data: parcelResponse,
     isLoading: isLoadingParcels,
     isError,
   } = useSenderParcelInfoQuery(undefined);
-  const parcels = parcelResponse?.data || [];
+  const parcels: Parcel[] = (parcelResponse?.data as Parcel[]) || [];
 
   // Cancel parcel mutation
   const [cancelParcel, { isLoading: isCancelling }] = useCancelParcelMutation();
 
   // Only show parcels that can be cancelled (not dispatched or already cancelled)
-  const cancellableParcels = parcels.filter((p) => {
+  const cancellableParcels = parcels.filter((p: Parcel) => {
     const status = p.status?.toUpperCase();
     return (
       status !== "DISPATCHED" && status !== "CANCELED" && status !== "DELIVERED"
@@ -72,7 +81,7 @@ const Cancel_Parcel = () => {
         {cancellableParcels.map((parcel) => (
           <option key={parcel._id} value={parcel._id}>
             {parcel.parcelType} - {parcel.status} -{" "}
-            {parcel.trackingId.slice(-5)}
+            {parcel.trackingId ? parcel.trackingId.slice(-5) : "N/A"}
           </option>
         ))}
       </select>

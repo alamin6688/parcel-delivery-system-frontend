@@ -10,6 +10,21 @@ import {
 import { Link } from "react-router";
 import { toast } from "sonner";
 
+type Parcel = {
+  _id: string;
+  id?: string;
+  imageURL?: string;
+  itemName?: string;
+  fee?: number | string;
+  status: string;
+  weight?: number | string;
+  parcelType?: string;
+  trackingId?: string;
+  pickupAddress?: string;
+  deliveryAddress?: string;
+  isBlocked?: boolean;
+};
+
 const AllParcels = () => {
   const {
     data: parcelInfo,
@@ -81,7 +96,7 @@ const AllParcels = () => {
 
       {parcelInfo?.data?.length ? (
         <div className="grid justify-center grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-          {parcelInfo.data.map((parcel) => (
+          {parcelInfo.data.map((parcel: Parcel) => (
             <div
               key={parcel.id}
               className="max-w-sm w-full mx-auto bg-background border rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden"

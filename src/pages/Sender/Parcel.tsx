@@ -2,11 +2,21 @@ import { useCreateParcelMutation } from "@/redux/features/auth/auth.api";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
+type ParcelFormValues = {
+  receiverId: string;
+  parcelType: string;
+  weight: string;
+  imageURL: string;
+  pickupAddress: string;
+  deliveryAddress: string;
+  fee: string;
+};
+
 const Parcel = () => {
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset } = useForm<ParcelFormValues>();
   const [createParcel, { isLoading }] = useCreateParcelMutation();
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: ParcelFormValues) => {
     try {
       await createParcel({
         receiverId: data.receiverId,

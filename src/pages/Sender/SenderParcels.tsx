@@ -3,6 +3,17 @@ import { Button } from "@/components/ui/button";
 import { useSenderParcelInfoQuery } from "@/redux/features/auth/auth.api";
 import { Link } from "react-router";
 
+export type Parcel = {
+  _id: string;
+  parcelType: string;
+  status: string;
+  pickupAddress?: string;
+  deliveryAddress?: string;
+  trackingId?: string;
+  fee?: number;
+  statusLogs?: { note: string; updatedAt: string }[];
+};
+
 export const SenderParcels = () => {
   const {
     data: parcelResponse,
@@ -31,7 +42,7 @@ export const SenderParcels = () => {
       <h2 className="text-2xl font-semibold mb-6 text-center">My Parcels</h2>
 
       <div className="space-y-6">
-        {parcels.map((parcel) => (
+        {parcels.map((parcel: Parcel) => (
           <div
             key={parcel._id}
             className="border rounded-lg grid grid-cols-1 md:grid-cols-2 gap-6 p-4 hover:shadow-sm transition"

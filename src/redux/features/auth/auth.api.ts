@@ -116,7 +116,7 @@ export const authApi = baseApi.injectEndpoints({
         url: `/parcel/${id}/status-log`,
         method: "GET",
       }),
-      providesTags: (result, error, id) => [{ type: "PARCEL", id }],
+      providesTags: (id) => [{ type: "PARCEL", id }],
     }),
 
     getIncomingParcels: builder.query({
@@ -148,7 +148,9 @@ export const authApi = baseApi.injectEndpoints({
             "senderParcelInfo",
             undefined,
             (draft) => {
-              draft.data = draft.data.filter((p) => p._id !== id);
+              draft.data = draft.data.filter(
+                (p: { _id: string }) => p._id !== id
+              );
             }
           )
         );

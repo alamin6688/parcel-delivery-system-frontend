@@ -6,10 +6,17 @@ import {
 } from "@/redux/features/auth/auth.api";
 import { toast } from "sonner";
 
+type Parcel = {
+  _id: string;
+  parcelType: string;
+  status: string;
+  trackingId: string;
+  deliveryAddress: string;
+};
+
 const IncomingParcels = () => {
   const { data, isLoading, isError } = useGetIncomingParcelsQuery(undefined);
-  const [confirmDelivery, { isLoading: confirming }] =
-    useConfirmParcelDeliveryMutation();
+  const [confirmDelivery] = useConfirmParcelDeliveryMutation();
 
   const handleConfirm = async (id: string, status: string) => {
     if (status === "REQUESTED" || status === "APPROVED") {
@@ -29,8 +36,11 @@ const IncomingParcels = () => {
     try {
       await confirmDelivery(id).unwrap();
       toast.success("Delivery confirmed successfully!");
-    } catch (error) {
-      toast.error(error?.data?.message || "Failed to confirm delivery");
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      const message =
+        error?.data?.message || error?.message || "Failed to confirm delivery";
+      toast.error(message);
     }
   };
 
@@ -43,7 +53,7 @@ const IncomingParcels = () => {
 
   if (isError) return <p>Failed to load incoming parcels.</p>;
 
-  const parcels = data?.data || [];
+  const parcels: Parcel[] = data?.data || [];
 
   return (
     <div className="px-4 py-6">
