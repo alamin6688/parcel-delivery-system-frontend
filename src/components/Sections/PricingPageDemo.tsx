@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { easeOut, motion } from "framer-motion";
 import { PricingCard } from "../price";
 
 // --- ICONS for the demo ---
@@ -68,7 +68,7 @@ const itemVariants = {
     y: 0,
     transition: {
       duration: 0.5,
-      ease: "easeOut",
+      ease: easeOut,
     },
   },
 };

@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import config from "@/config";
 import { cn } from "@/lib/utils";
 import { useLoginMutation } from "@/redux/features/auth/auth.api";
+import { handleApiError } from "@/utils/handleApiError";
 import { useForm } from "react-hook-form";
 import type { FieldValues } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
@@ -34,14 +35,9 @@ export function LoginForm({
         navigate("/");
       }
     } catch (err) {
-      console.error(err);
+      const message = handleApiError(err);
 
-      if (err.data.message === "Password does not match") {
-        toast.error("Invalid credentials");
-      }
-
-      if (err.data.message === "User is not verified") {
-        toast.error("Your account is not verified");
+      if (message === "User is not verified") {
         navigate("/verify", { state: data.email });
       }
     }
