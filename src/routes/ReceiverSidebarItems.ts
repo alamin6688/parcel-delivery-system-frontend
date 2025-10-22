@@ -3,7 +3,7 @@ import type { ISidebarItem } from "@/types";
 
 export const receiverSidebarItems: ISidebarItem[] = [
   {
-    title: "Parcel Management",
+    title: "Parcel List(s)",
     items: [
       {
         title: "Incoming parcels",

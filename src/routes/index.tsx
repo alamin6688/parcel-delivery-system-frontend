@@ -1,6 +1,5 @@
 import App from "@/App";
 import DashboardLayout from "@/components/layout/DashboardLayout";
-import About from "@/pages/About";
 import Login from "@/pages/Login";
 import Register from "@/pages/Register";
 import Verify from "@/pages/Verify";
@@ -14,6 +13,7 @@ import { role } from "@/constants/role";
 import type { TRole } from "@/types";
 import Homepage from "@/pages/Homepage";
 import { receiverSidebarItems } from "./ReceiverSidebarItems";
+import Contact from "@/pages/Contact";
 
 export const router = createBrowserRouter([
   {
@@ -25,8 +25,8 @@ export const router = createBrowserRouter([
         index: true,
       },
       {
-        Component: About,
-        path: "about",
+        Component: Contact,
+        path: "contact",
       },
     ],
   },

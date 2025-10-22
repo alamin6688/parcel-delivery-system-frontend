@@ -24,7 +24,7 @@ import { role } from "@/constants/role";
 // Navigation links array to be used in both desktop and mobile menus
 const navigationLinks = [
   { href: "/", label: "Home", role: "PUBLIC" },
-  { href: "/about", label: "About", role: "PUBLIC" },
+  { href: "/contact", label: "Contact Us", role: "PUBLIC" },
   { href: "/admin", label: "Dashboard", role: role.admin },
   { href: "/admin", label: "Dashboard", role: role.superAdmin },
   { href: "/receiver", label: "Dashboard", role: role.receiver },
@@ -37,7 +37,6 @@ export default function Navbar() {
   const dispatch = useAppDispatch();
   // console.log(data);
   // console.log("Current user ID:", data?.data?.userId);
-
 
   const handleLogout = async () => {
     await logout(undefined);
