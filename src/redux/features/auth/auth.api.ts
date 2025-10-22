@@ -119,6 +119,13 @@ export const authApi = baseApi.injectEndpoints({
       providesTags: (result, error, id) => [{ type: "PARCEL", id }],
     }),
 
+    getIncomingParcels: builder.query({
+  query: () => ({
+    url: "/parcel/incoming",
+    method: "GET",
+  }),
+}),
+
     cancelParcel: builder.mutation({
       query: (id: string) => ({
         url: `/parcel/cancel/${id}`,
@@ -162,5 +169,6 @@ export const {
   useUpdateParcelStatusMutation,
   useDeleteParcelMutation,
   useStatusLogQuery,
+  useGetIncomingParcelsQuery,
   useCancelParcelMutation,
 } = authApi;

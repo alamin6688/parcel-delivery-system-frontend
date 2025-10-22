@@ -13,6 +13,7 @@ import { withAuth } from "@/utils/withAuth";
 import { role } from "@/constants/role";
 import type { TRole } from "@/types";
 import Homepage from "@/pages/Homepage";
+import { receiverSidebarItems } from "./ReceiverSidebarItems";
 
 export const router = createBrowserRouter([
   {
@@ -40,18 +41,18 @@ export const router = createBrowserRouter([
       ...generateRoutes(adminSidebarItems),
     ],
   },
-  // {
-  //   Component: withAuth(DashboardLayout, role.receiver as TRole),
-  //   path: "/receiver",
-  //   children: [
-  //     {
-  //       children: [
-  //         { index: true, element: <Navigate to="/sender/parcel" /> },
-  //         ...generateRoutes(userSidebarItems),
-  //       ],
-  //     },
-  //   ],
-  // },
+  {
+    Component: withAuth(DashboardLayout, role.receiver as TRole),
+    path: "/receiver",
+    children: [
+      {
+        children: [
+          { index: true, element: <Navigate to="parcel/incoming" /> },
+          ...generateRoutes(receiverSidebarItems),
+        ],
+      },
+    ],
+  },
   {
     Component: withAuth(DashboardLayout, role.sender as TRole),
     path: "/sender",
