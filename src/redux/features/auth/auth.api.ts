@@ -120,11 +120,20 @@ export const authApi = baseApi.injectEndpoints({
     }),
 
     getIncomingParcels: builder.query({
-  query: () => ({
-    url: "/parcel/incoming",
-    method: "GET",
-  }),
-}),
+      query: () => ({
+        url: "/parcel/incoming",
+        method: "GET",
+      }),
+      providesTags: ["PARCEL"],
+    }),
+
+    confirmParcelDelivery: builder.mutation({
+      query: (id: string) => ({
+        url: `/parcel/confirm/${id}`,
+        method: "PATCH",
+      }),
+      invalidatesTags: ["PARCEL"],
+    }),
 
     cancelParcel: builder.mutation({
       query: (id: string) => ({
@@ -170,5 +179,6 @@ export const {
   useDeleteParcelMutation,
   useStatusLogQuery,
   useGetIncomingParcelsQuery,
+  useConfirmParcelDeliveryMutation,
   useCancelParcelMutation,
 } = authApi;
