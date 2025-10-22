@@ -75,7 +75,7 @@ const itemVariants = {
 
 export default function PricingPageDemo() {
   return (
-    <div className="w-full max-w-6xl mx-auto py-12 px-4">
+    <div className="w-full container mx-auto py-12 px-4">
       <motion.h2
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}

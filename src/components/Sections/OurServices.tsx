@@ -28,7 +28,7 @@ export default function OurServices() {
       className="py-16 bg-gradient-to-b from-background text-foreground"
       id="services"
     >
-      <div className="max-w-6xl mx-auto px-6 text-center">
+      <div className="container mx-auto px-6 text-center">
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
