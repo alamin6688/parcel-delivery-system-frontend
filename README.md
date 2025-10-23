@@ -1,73 +1,175 @@
-# React + TypeScript + Vite
+<h1>🚚 Delva (Parcel Delivery System - Frontend)</h1>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<p>A modern, responsive and role-based web client for managing <b>parcel delivery operations</b> — inspired by Pathao Courier and Sundarban. It provides tailored dashboards for <b>Admin</b>, <b>Sender</b>, and <b>Receiver</b> roles, ensuring secure access and seamless delivery management.</p>
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🌐 See Live 
 
-## React Compiler
+🔗 **Frontend:** [https://parcel-delivery-system-frontend-beryl.vercel.app](https://parcel-delivery-system-frontend-beryl.vercel.app)  
+🔗 **Backend:** [https://parcel-delivery-system-iota.vercel.app](https://parcel-delivery-system-iota.vercel.app)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## ✨ Key Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+<ul>
+<li>🎨 <b>Responsive UI</b> – Built with React, Tailwind CSS, and ShadCN for modern UX</li>
+<li>🔐 <b>Role-Based Access</b> – Secure routing for <code>ADMIN</code>, <code>SENDER</code>, <code>RECEIVER</code></li>
+<li>📦 <b>Parcel Dashboard</b> – Create, track, cancel, or confirm parcel deliveries</li>
+<li>🧭 <b>Dynamic Routing</b> – React Router DOM with nested route architecture</li>
+<li>🛡️ <b>Auth Integration</b> – JWT-based login system synced with backend API</li>
+<li>🧠 <b>State Management</b> – Redux Toolkit Query (RTK Query) for API calls and caching</li>
+<li>📜 <b>Status Logs</b> – Real-time parcel status tracking</li>
+<li>🚫 <b>Block/Unblock System</b> – Admin can manage users and parcels directly</li>
+<li>⚙️ <b>Environment Config</b> – <code>.env</code>-based API URL configuration</li>
+<li>📄 <b>Clean & Modular</b> – Component-based, scalable folder structure</li>
+</ul>
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 🛠️ Technology Stack
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+| Category | Tools |
+|-----------|-------|
+| 🧩 Framework | React.js + Vite |
+| ⚙️ Language | TypeScript |
+| 🎨 Styling | Tailwind CSS + ShadCN UI |
+| 🧠 State Management | Redux Toolkit + RTK Query |
+| 🔑 Auth | JWT-based, with secure API integration |
+| 🌐 API | RESTful backend (Node.js + Express) |
+| 🧭 Routing | React Router DOM |
+| 🧰 Utilities | Axios, React Hook Form, Zod |
+| 🧹 Linting | ESLint + Prettier |
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 📂 Folder Structure
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+<pre><code>
+src/
+├── components/        # Shared UI components (buttons, modals, tables)
+├── layouts/           # Role-based layouts (Admin, Sender, Receiver)
+├── pages/             # Page-level components
+│   ├── admin/         # Admin routes
+│   ├── sender/        # Sender routes
+│   ├── receiver/      # Receiver routes
+│   ├── auth/          # Login, register
+│   └── home/          # Landing page
+├── redux/
+│   ├── features/      # Auth, parcel, user slices & APIs
+│   └── store.ts       # Redux store setup
+├── routes/            # ProtectedRoute, RoleRoute configurations
+├── utils/             # Token manager, helpers
+├── App.tsx            # App entry point with route setup
+└── main.tsx           # ReactDOM render & provider setup
+</code></pre>
+
+---
+
+## 👤 Role-Based Features
+
+### 🧑‍💼 Sender
+<ul>
+<li>➕ Create new parcel requests</li>
+<li>📦 View all created parcels</li>
+<li>🚫 Cancel parcel (if not dispatched)</li>
+<li>🕒 Track parcel status log</li>
+</ul>
+
+### 📥 Receiver
+<ul>
+<li>📦 View incoming parcels</li>
+<li>✅ Confirm parcel delivery</li>
+<li>📜 Access delivery history</li>
+</ul>
+
+### 🛠️ Admin
+<ul>
+<li>👥 Manage all users (view/block/unblock)</li>
+<li>🚚 Manage all parcels (approve, dispatch, deliver)</li>
+<li>🔍 Filter by parcel status or tracking ID</li>
+<li>🗑️ Delete parcels permanently</li>
+</ul>
+
+---
+
+## ⚙️ Environment Variables
+
+Create a `.env` file in the project root:
+
+<pre><code>
+VITE_API_BASE_URL=https://parcel-delivery-system-iota.vercel.app/api/v1
+</code></pre>
+
+---
+
+## 🚀 Quick Start
+
+<pre><code>
+# 1. Clone the repository
+git clone https://github.com/yourusername/parcel-delivery-system-frontend.git
+cd parcel-delivery-system-frontend
+
+# 2. Install dependencies
+npm install
+
+# 3. Set environment variables
+cp .env.example .env
+
+# 4. Run the development server
+npm run dev
+
+# 5. Build for production
+npm run build
+</code></pre>
+
+---
+
+## 🧭 Routing Overview
+
+| Role | Example Path | Access |
+|------|---------------|--------|
+| Public | `/`, `/login`, `/register` | Anyone |
+| Sender | `/sender/dashboard`, `/sender/parcels` | Authenticated Sender |
+| Receiver | `/receiver/dashboard`, `/receiver/parcels` | Authenticated Receiver |
+| Admin | `/admin/dashboard`, `/admin/parcels`, `/admin/users` | Authenticated Admin |
+
+---
+
+## 🧠 Integration Notes
+
+<ul>
+<li>Backend API is connected via <b>Redux RTK Query</b>.</li>
+<li>Token stored securely in <b>HTTP-only cookies</b> or local storage.</li>
+<li>Protected routes auto-redirect unauthorized users.</li>
+<li>Error messages and validation handled consistently with backend <b>Zod</b> structure.</li>
+</ul>
+
+---
+
+## 🧹 Developer Notes
+
+<ul>
+<li>🧾 <b>Type Safety:</b> End-to-end TypeScript support</li>
+<li>🎨 <b>UI Consistency:</b> Tailwind + ShadCN for unified design</li>
+<li>🧩 <b>Code Quality:</b> ESLint + Prettier enforced</li>
+<li>♻️ <b>Reusable Components:</b> Designed for modular scalability</li>
+</ul>
+
+---
+
+## 📝 Scripts
+
+| Command | Description |
+|----------|-------------|
+| `npm run dev` | Start development server |
+| `npm run build` | Build for production |
+| `npm run preview` | Preview production build |
+| `npm run lint` | Run ESLint checks |
+
+---
+
+## 📜 License
+
+MIT License © 2025 – Parcel Delivery System Frontend
